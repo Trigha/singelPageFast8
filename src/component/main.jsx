@@ -1,16 +1,18 @@
 import { FaSearch, FaPlus } from 'react-icons/fa';
+import { HiDotsHorizontal } from 'react-icons/hi';
 
 function Main() {
   return (
     <div>
-      {/* Start Main content */}
+      {/* Start Main */}
       <div class="flex flex-wrap">
-        <div class="w-64 md:w-full max-w-lg mx-auto drop-shadow-lg rounded-xl">
+        {/* Heading main content */}
+        <div class="w-64 md:w-full max-w-lg mx-auto drop-shadow-lg rounded-xl mb-6">
           <div class="bg-white border-transparent border-4  shadow-sm h-full">
             <div class="p-2">
               <div class="flex flex-col">
                 <h1 class="flex items-start uppercase  text-primary font-bold text-2xl">
-                  personel list
+                  personnel list
                 </h1>
                 <h2 class="flex items-start normal-case text-secondary text-lg mb-2">
                   List of all personnels
@@ -40,8 +42,50 @@ function Main() {
             </div>
           </div>
         </div>
+        {/* End heading main content */}
+
+        {/* Start main content */}
+        <div class="w-64 md:w-full max-w-lg mx-auto drop-shadow-lg">
+          <div class="bg-white border-transparent border-4 rounded-xl shadow-sm h-full">
+            <div class="p-2">
+              <div class="flex justify-between">
+                <h1 class="flex items-start   text-secondary  text-[18px] px-2">
+                  Personnel ID :
+                </h1>
+                <button class="px-2">
+                  <HiDotsHorizontal size={27} />
+                </button>
+              </div>
+            </div>
+            <div class="border-b-2 w-full" />
+            <div class="p-2">
+              <div class="flex space-x-5 px-2 py-3">
+                <img
+                  class="w-20 rounded-full border border-gray-100 shadow-sm"
+                  src="https://randomuser.me/api/portraits/men/11.jpg"
+                  alt="user image"
+                />
+                <div class="flex justify-start flex-col">
+                  <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
+                    Name
+                  </h1>
+                  <p class="text-secondary self-start text-[16px] font-medium pt-0 mb-2">
+                    First name
+                  </p>
+                  <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
+                    Telephone
+                  </h1>
+                  <p class="text-secondary self-start text-[16px] font-medium">
+                    08977
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* End main content */}
       </div>
-      {/* End main content */}
+      {/* End main*/}
     </div>
   );
 }
