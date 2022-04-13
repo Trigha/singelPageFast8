@@ -5,9 +5,11 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Pagination from './pagination';
+import ReactLoading from 'react-loading';
 
 function Main() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(4);
 
@@ -22,7 +24,10 @@ function Main() {
       .get('https://randomuser.me/api/?results=28')
       .then((Response) => {
         if (Response.data) {
-          alert('FOund');
+          setLoading(true);
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
           setData(Response.data.results);
         } else {
           alert('not found');
@@ -30,6 +35,16 @@ function Main() {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center content-center h-screen">
+        <br />
+
+        <ReactLoading type="cylon" color="#0000FF" height={100} width={50} />
+      </div>
+    );
+  }
   return (
     <div>
       {/* Start Main */}
@@ -131,19 +146,19 @@ function Main() {
                             Telephone
                           </h1>
                           <p class="text-secondary self-start text-[16px] font-medium md:mb-2">
-                            08977
+                            {el.phone}
                           </p>
                           <h1 class="text-[14px] text-secondary font-bold self-start leading-3 hidden md:block">
                             Birthday
                           </h1>
                           <p class="text-secondary self-start text-[16px] font-medium hidden md:block md:mb-2">
-                            18-02
+                            {el.dob.date.substring(0, 10)}
                           </p>
                           <h1 class="text-[14px] text-secondary font-bold self-start leading-3 hidden md:block">
                             Email
                           </h1>
                           <p class="text-secondary self-start text-[16px] font-medium hidden md:block md:mb-2">
-                            test@mail
+                            {el.email}
                           </p>
                         </div>
                       </div>
