@@ -1,8 +1,35 @@
 import { FaSearch, FaPlus, FaHome, FaRegCalendarAlt } from 'react-icons/fa';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { IoIosPeople } from 'react-icons/io';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Pagination from './pagination';
 
 function Main() {
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(4);
+
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPost = data.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    axios
+      .get('https://randomuser.me/api/?results=28')
+      .then((Response) => {
+        if (Response.data) {
+          alert('FOund');
+          setData(Response.data.results);
+        } else {
+          alert('not found');
+        }
+      })
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <div>
       {/* Start Main */}
@@ -71,184 +98,73 @@ function Main() {
 
           <div class="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-12">
             {/* Start main content */}
-            <div class="w-64 max-w-lg drop-shadow-lg">
-              <div class="bg-white border-transparent border-4 rounded-xl shadow-sm">
-                <div class="p-2">
-                  <div class="flex justify-between">
-                    <h1 class="flex items-start   text-secondary  text-[18px] px-2">
-                      Personnel ID :
-                    </h1>
-                    <button class="px-2">
-                      <HiDotsHorizontal size={27} />
-                    </button>
-                  </div>
-                </div>
-                <div class="border-b-2 w-full" />
-                <div class="p-2">
-                  <div class="flex flex-row md:flex-col space-x-5 px-2 py-3 md:py-0 md:pt-3">
-                    <img
-                      class="w-20 md:w-40 rounded-full border border-gray-100 shadow-sm md:mx-auto "
-                      src="https://randomuser.me/api/portraits/men/11.jpg"
-                      alt="user image"
-                    />
-                    <div class="flex justify-start flex-col py-0 md:pt-5">
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
-                        Name
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium pt-0 md:mb-2">
-                        First name
-                      </p>
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
-                        Telephone
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium md:mb-2">
-                        08977
-                      </p>
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3 hidden md:block">
-                        Birthday
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium hidden md:block md:mb-2">
-                        18-02
-                      </p>
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3 hidden md:block">
-                        Email
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium hidden md:block md:mb-2">
-                        test@mail
-                      </p>
+            {currentPost ? (
+              currentPost.map((el, i) => (
+                <div class="w-64 max-w-lg drop-shadow-lg" key={i}>
+                  <div class="bg-white border-transparent border-4 rounded-xl shadow-sm">
+                    <div class="p-2">
+                      <div class="flex justify-between">
+                        <h1 class="flex items-start   text-secondary  text-[18px] px-2">
+                          Personnel ID :
+                        </h1>
+                        <button class="px-2">
+                          <HiDotsHorizontal size={27} />
+                        </button>
+                      </div>
+                    </div>
+                    <div class="border-b-2 w-full" />
+                    <div class="p-2">
+                      <div class="flex flex-row md:flex-col space-x-5 px-2 py-3 md:py-0 md:pt-3">
+                        <img
+                          class="w-20 md:w-40 rounded-full border border-gray-100 shadow-sm md:mx-auto "
+                          src="https://randomuser.me/api/portraits/men/11.jpg"
+                          alt="user image"
+                        />
+                        <div class="flex justify-start flex-col py-0 md:pt-5">
+                          <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
+                            Name
+                          </h1>
+                          <p class="text-secondary self-start text-[16px] font-medium pt-0 md:mb-2">
+                            {el.name.first} {el.name.last}
+                          </p>
+                          <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
+                            Telephone
+                          </h1>
+                          <p class="text-secondary self-start text-[16px] font-medium md:mb-2">
+                            08977
+                          </p>
+                          <h1 class="text-[14px] text-secondary font-bold self-start leading-3 hidden md:block">
+                            Birthday
+                          </h1>
+                          <p class="text-secondary self-start text-[16px] font-medium hidden md:block md:mb-2">
+                            18-02
+                          </p>
+                          <h1 class="text-[14px] text-secondary font-bold self-start leading-3 hidden md:block">
+                            Email
+                          </h1>
+                          <p class="text-secondary self-start text-[16px] font-medium hidden md:block md:mb-2">
+                            test@mail
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="w-64 max-w-lg drop-shadow-lg">
-              <div class="bg-white border-transparent border-4 rounded-xl shadow-sm">
-                <div class="p-2">
-                  <div class="flex justify-between">
-                    <h1 class="flex items-start   text-secondary  text-[18px] px-2">
-                      Personnel ID :
-                    </h1>
-                    <button class="px-2">
-                      <HiDotsHorizontal size={27} />
-                    </button>
-                  </div>
-                </div>
-                <div class="border-b-2 w-full" />
-                <div class="p-2">
-                  <div class="flex flex-row md:flex-col space-x-5 px-2 py-3">
-                    <img
-                      class="w-20 md:w-40 rounded-full border border-gray-100 shadow-sm md:mx-auto "
-                      src="https://randomuser.me/api/portraits/men/11.jpg"
-                      alt="user image"
-                    />
-                    <div class="flex justify-start flex-col py-0 md:py-7">
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
-                        Name
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium pt-0 mb-2">
-                        First name
-                      </p>
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
-                        Telephone
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium">
-                        08977
-                      </p>
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3 hidden">
-                        Birthday
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium hidden">
-                        18-02
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="w-64 max-w-lg drop-shadow-lg">
-              <div class="bg-white border-transparent border-4 rounded-xl shadow-sm">
-                <div class="p-2">
-                  <div class="flex justify-between">
-                    <h1 class="flex items-start   text-secondary  text-[18px] px-2">
-                      Personnel ID :
-                    </h1>
-                    <button class="px-2">
-                      <HiDotsHorizontal size={27} />
-                    </button>
-                  </div>
-                </div>
-                <div class="border-b-2 w-full" />
-                <div class="p-2">
-                  <div class="flex flex-row md:flex-col space-x-5 px-2 py-3">
-                    <img
-                      class="w-20 md:w-40 rounded-full border border-gray-100 shadow-sm md:mx-auto "
-                      src="https://randomuser.me/api/portraits/men/11.jpg"
-                      alt="user image"
-                    />
-                    <div class="flex justify-start flex-col py-0 md:py-7">
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
-                        Name
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium pt-0 mb-2">
-                        First name
-                      </p>
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
-                        Telephone
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium">
-                        08977
-                      </p>
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3 hidden">
-                        Birthday
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium hidden">
-                        18-02
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="w-64 max-w-lg drop-shadow-lg">
-              <div class="bg-white border-transparent border-4 rounded-xl shadow-sm">
-                <div class="p-2">
-                  <div class="flex justify-between">
-                    <h1 class="flex items-start   text-secondary  text-[18px] px-2">
-                      Personnel ID :
-                    </h1>
-                    <button class="px-2">
-                      <HiDotsHorizontal size={27} />
-                    </button>
-                  </div>
-                </div>
-                <div class="border-b-2 w-full" />
-                <div class="p-2">
-                  <div class="flex space-x-5 px-2 py-3">
-                    <img
-                      class="w-20 rounded-full border border-gray-100 shadow-sm"
-                      src="https://randomuser.me/api/portraits/men/11.jpg"
-                      alt="user image"
-                    />
-                    <div class="flex justify-start flex-col">
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
-                        Name
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium pt-0 mb-2">
-                        First name
-                      </p>
-                      <h1 class="text-[14px] text-secondary font-bold self-start leading-3">
-                        Telephone
-                      </h1>
-                      <p class="text-secondary self-start text-[16px] font-medium">
-                        08977
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ))
+            ) : (
+              <>
+                <h1 className="text-lg font-medium text-gray-400 italic ">
+                  Result Empty
+                </h1>
+              </>
+            )}
+          </div>
+          <div className="mx-auto">
+            <Pagination
+              postPerPage={postPerPage}
+              totalPosts={data.length}
+              paginate={paginate}
+            />
           </div>
           {/* End main content */}
         </div>
