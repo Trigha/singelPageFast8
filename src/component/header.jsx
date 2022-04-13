@@ -2,7 +2,7 @@ import { AiOutlineMenu } from 'react-icons/ai';
 
 function Heading() {
   return (
-    <div class="mb-32">
+    <div class="mb-20 md:mb-24">
       <header class="bg-white shadow-sm w-full fixed z-10 top-0">
         <div class="max-auto  px-8 py-2 bg-white">
           <div class="flex justify-between">
