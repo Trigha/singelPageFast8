@@ -114,7 +114,7 @@ function Main() {
                   <h2 class="flex items-start normal-case text-secondary text-lg mb-2">
                     List of all personnels
                   </h2>
-                  <div class="flex flex-col md:flex-row md:absolute md:bottom-2 md:left-[58%] space-x-5">
+                  <div class="flex flex-col md:flex-row md:absolute md:bottom-2 md:left-[58%] md:space-x-5">
                     <div class="relative mb-3">
                       <button class="absolute top-0 bottom-0 left-3 text-primary font-bold">
                         <FaSearch size={27} />
